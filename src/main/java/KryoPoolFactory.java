@@ -1,29 +1,20 @@
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.pool.KryoFactory;
 import com.esotericsoftware.kryo.pool.KryoPool;
-import kafka.utils.json.JsonObject;
-import org.objenesis.strategy.StdInstantiatorStrategy;
-
-public enum KryoPoolFactory {
-
-    INSTANCE;
+import com.esotericsoftware.kryo.util.DefaultClassResolver;
+import com.esotericsoftware.kryo.util.DefaultStreamFactory;
+import java.util.concurrent.ArrayBlockingQueue;
 
 
-    private KryoPool kryoPool;
+public class KryoPoolFactory {
 
-    KryoPoolFactory() {
-        KryoFactory kryoFactory = () -> {
-            Kryo kryo = new Kryo();
-            kryo.setReferences(false);
-            kryo.register(Employee.class);
-            kryo.setInstantiatorStrategy(new Kryo.DefaultInstantiatorStrategy(new StdInstantiatorStrategy()));
-            return kryo;
-        };
-        kryoPool = new KryoPool.Builder(kryoFactory).softReferences().build();
-    }
-
-
-    public KryoPool getPool() {
-        return kryoPool;
+    public static KryoPool build() {
+        return new KryoPool.Builder(
+                () -> {
+                    Kryo kryo = new Kryo(new DefaultClassResolver(), null, new DefaultStreamFactory());
+                    return kryo;
+                })
+                .queue(new ArrayBlockingQueue<>(1000))
+                .softReferences()
+                .build();
     }
 }

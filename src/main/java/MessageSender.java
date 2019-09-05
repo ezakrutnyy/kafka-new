@@ -2,8 +2,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.common.protocol.types.Field;
-import org.apache.kafka.common.serialization.BytesSerializer;
+import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +57,7 @@ public class MessageSender {
         kafkaProps.put("bootstrap.servers", kafkaServers);
         kafkaProps.put("acks", "all");
         kafkaProps.put("key.serializer", StringSerializer.class);
-        kafkaProps.put("value.serializer", BytesSerializer.class);
+        kafkaProps.put("value.serializer", ByteArraySerializer.class);
         kafkaProps.put("max.request.size", "5000000");
         kafkaProps.put("batch.size", "32000");
         kafkaProps.put("linger.ms", "1000");

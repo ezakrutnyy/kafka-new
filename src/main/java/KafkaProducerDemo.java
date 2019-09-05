@@ -5,18 +5,29 @@ import java.util.concurrent.Future;
 public class KafkaProducerDemo {
     public static void main(String[] args) {
 
+//        Employee employee = new Employee();
+//        employee.setCountry("Russia");
+//        employee.setName("Petrov Petr  Petrovich");
+//        employee.setYear(35);
+
+//        Employee employee = new Employee();
+//        employee.setCountry("Russia");
+//        employee.setName("Ivanov Ivan Ivanovich");
+//        employee.setYear(45);
+
+//        Employee employee = new Employee();
+//        employee.setCountry("USA");
+//        employee.setName("Joch Smith");
+//        employee.setYear(31);
+
         Employee employee = new Employee();
-        employee.setCountry("Russia");
-        employee.setName("Ivanov Ivan Ivanovich");
-        employee.setYear(45);
+        employee.setCountry("Serbia");
+        employee.setName("Chester Varvil");
+        employee.setYear(12);
 
         KryoObjectSerializer kryo = new KryoObjectSerializer();
         byte[] data = kryo.serialize(employee);
         System.out.println(data);
-
-        Employee eCopy = kryo.deserialize(data, Employee.class);
-        System.out.println(eCopy);
-
 
 
         String severs = "localhost:9092";
