@@ -1,4 +1,5 @@
 https://kafka.apache.org/documentation/
+https://github.com/omkreddy/kafka-examples/tree/master/producer
 
 
 zookeeper start console
@@ -9,6 +10,6 @@ kafka_2.12-2.2.0\bin\windows\kafka-server-start.bat config\server.properties
 
 kafka_2.12-2.2.0\bin\windows\zookeeper-server-start.bat ..\..\config\zookeeper.properties
 
-https://github.com/omkreddy/kafka-examples/tree/master/producer
+
 
 
