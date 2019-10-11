@@ -1,0 +1,26 @@
+bin\runProducer.sh  --bootstrap.servers='localhost:9092' --topic='suite' --range=1000 --url='google.com' --login='zak'
+
+bin\runConsumer.sh  --bootstrap.servers='localhost:9092' --topic='suite'
+
+bin\runProducerKryo.sh  --bootstrap.servers='localhost:9092' --topic='employee' --age=33 --country='Russia' --login='zak'
+
+bin\runConsumerKryo.sh  --bootstrap.servers='localhost:9092' --topic='employee'
+============
+
+netstat -ano | findstr 9092
+taskkill /PID 21124 /F
+
+========
+cd work\platform_9.0.2.hf5\kafka\bin\windows
+
+
+zookeeper-server-stop.bat
+zookeeper-server-start.bat ..\..\config\zookeeper.properties
+
+
+kafka-server-start.bat ..\..\config\server.properties
+kafka-server-stop.bat
+
+kafka-topics.bat --zookeeper localhost:2181 --list
+kafka-topics.bat --delete --zookeeper localhost:2181 --topic newTopic
+kafka-topics.bat --create --zookeeper localhost:2181 --topic newTopic --partitions 1 --replication-factor 1
